@@ -1,0 +1,11 @@
+# Arduino build folders and binaries
+build/
+out/
+*.bin
+*.elf
+*.hex
+
+# IDE specific files
+.vscode/
+.clangd
+.history/

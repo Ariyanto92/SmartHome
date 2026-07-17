@@ -1,0 +1,653 @@
+{
+  "version": 1,
+  "author": "Anonymous maker",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-esp32-devkit-v1",
+      "id": "esp",
+      "top": 100.7,
+      "left": -158.6,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -445.2,
+      "left": 493.8,
+      "attrs": {
+        "color": "red",
+        "flip": "1"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -408.85,
+      "left": 374.4,
+      "rotate": 180,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd",
+      "top": 284.8,
+      "left": 15.2,
+      "attrs": {
+        "pins": "i2c"
+      }
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay_red",
+      "top": -460,
+      "left": 200,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay_green",
+      "top": -320,
+      "left": 200,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_green",
+      "top": -320.4,
+      "left": 493.4,
+      "attrs": {
+        "color": "green",
+        "flip": "1"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_green",
+      "top": -283.75,
+      "left": 373,
+      "rotate": 180,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay_blue",
+      "top": -180,
+      "left": 200,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_blue",
+      "top": -176.4,
+      "left": 493.8,
+      "attrs": {
+        "color": "blue",
+        "flip": "1"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_blue",
+      "top": -139.75,
+      "left": 373,
+      "rotate": 180,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay_yellow",
+      "top": -38.2,
+      "left": 201.6,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_yellow",
+      "top": -42,
+      "left": 493.4,
+      "attrs": {
+        "color": "yellow",
+        "flip": "1"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_yellow",
+      "top": -5.35,
+      "left": 382.6,
+      "rotate": 180,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay_alarm",
+      "top": 100,
+      "left": 200,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": 69.6,
+      "left": 481.8,
+      "attrs": {
+        "volume": "0.2"
+      }
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay_kamar_tidur",
+      "top": -463.6,
+      "left": 737.6,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_kamar_tidur",
+      "top": -463.6,
+      "left": 1027.6,
+      "attrs": {
+        "color": "purple",
+        "flip": "1"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_kamar_tidur",
+      "top": -433.6,
+      "left": 917.6,
+      "rotate": 180,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay_kamar_ac",
+      "top": -393.4,
+      "left": 739.2,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_kamar_ac",
+      "top": -393.6,
+      "left": 1027.6,
+      "attrs": {
+        "color": "white",
+        "flip": "1"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_kamar_ac",
+      "top": -363.6,
+      "left": 917.6,
+      "rotate": 180,
+      "attrs": {
+        "value": "220"
+      }
+    }
+  ],
+  "connections": [
+    [
+      "esp:GND.2",
+      "lcd:GND",
+      "black",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "esp:3V3",
+      "lcd:VCC",
+      "red",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "esp:D21",
+      "lcd:SDA",
+      "blue",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "esp:D22",
+      "lcd:SCL",
+      "yellow",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "relay_red:VCC",
+      "esp:3V3",
+      "#8f4814",
+      [
+        "h-209.6",
+        "v594.6"
+      ]
+    ],
+    [
+      "relay_red:GND",
+      "esp:GND.1",
+      "black",
+      [
+        "h-190.4",
+        "v575.1"
+      ]
+    ],
+    [
+      "relay_red:IN",
+      "esp:D2",
+      "red",
+      [
+        "h-228.8",
+        "v547.1"
+      ]
+    ],
+    [
+      "relay_red:COM",
+      "esp:3V3",
+      "red",
+      [
+        "h60.4",
+        "v689.2"
+      ]
+    ],
+    [
+      "relay_red:NO",
+      "r1:2",
+      "red",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "r1:1",
+      "led1:A",
+      "red",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "led1:C",
+      "esp:GND.1",
+      "black",
+      [
+        "h114.8",
+        "v547.3"
+      ]
+    ],
+    [
+      "relay_green:VCC",
+      "esp:3V3",
+      "#8f4814",
+      [
+        "h-171.2",
+        "v454.6"
+      ]
+    ],
+    [
+      "relay_green:GND",
+      "esp:GND.1",
+      "black",
+      [
+        "h-152",
+        "v435.1"
+      ]
+    ],
+    [
+      "relay_green:IN",
+      "esp:D4",
+      "red",
+      [
+        "h-132.8",
+        "v396.7"
+      ]
+    ],
+    [
+      "relay_green:COM",
+      "esp:3V3",
+      "red",
+      [
+        "h50.8",
+        "v549.2"
+      ]
+    ],
+    [
+      "relay_green:NO",
+      "r_green:2",
+      "green",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "r_green:1",
+      "led_green:A",
+      "green",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "led_green:C",
+      "esp:GND.1",
+      "black",
+      [
+        "h96",
+        "v422.5"
+      ]
+    ],
+    [
+      "relay_blue:VCC",
+      "esp:3V3",
+      "#8f4814",
+      [
+        "h-113.6",
+        "v314.6"
+      ]
+    ],
+    [
+      "relay_blue:GND",
+      "esp:GND.1",
+      "black",
+      [
+        "h-94.4",
+        "v295.1"
+      ]
+    ],
+    [
+      "relay_blue:IN",
+      "esp:D5",
+      "red",
+      [
+        "h-75.2",
+        "v228"
+      ]
+    ],
+    [
+      "relay_blue:COM",
+      "esp:3V3",
+      "red",
+      [
+        "h41.2",
+        "v409.2"
+      ]
+    ],
+    [
+      "relay_blue:NO",
+      "r_blue:2",
+      "blue",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "r_blue:1",
+      "led_blue:A",
+      "blue",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "led_blue:C",
+      "esp:GND.1",
+      "black",
+      [
+        "h76.4",
+        "v278.5"
+      ]
+    ],
+    [
+      "relay_yellow:VCC",
+      "esp:3V3",
+      "#8f4814",
+      [
+        "h-56",
+        "v174.6"
+      ]
+    ],
+    [
+      "relay_yellow:GND",
+      "esp:GND.1",
+      "black",
+      [
+        "h-36.8",
+        "v155.1"
+      ]
+    ],
+    [
+      "relay_yellow:IN",
+      "esp:D18",
+      "yellow",
+      [
+        "h-17.6",
+        "v78.4"
+      ]
+    ],
+    [
+      "relay_yellow:COM",
+      "esp:3V3",
+      "red",
+      [
+        "h30",
+        "v267.4"
+      ]
+    ],
+    [
+      "relay_yellow:NO",
+      "r_yellow:2",
+      "yellow",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "r_yellow:1",
+      "led_yellow:A",
+      "yellow",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "led_yellow:C",
+      "esp:GND.1",
+      "black",
+      [
+        "h57.6",
+        "v144.1"
+      ]
+    ],
+    [
+      "relay_alarm:VCC",
+      "esp:3V3",
+      "red",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "relay_alarm:GND",
+      "esp:GND.1",
+      "black",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "relay_alarm:IN",
+      "esp:D19",
+      "orange",
+      [
+        "h-8",
+        "v-71.1"
+      ]
+    ],
+    [
+      "relay_alarm:COM",
+      "esp:3V3",
+      "red",
+      [
+        "h22",
+        "v129.2"
+      ]
+    ],
+    [
+      "relay_alarm:NO",
+      "bz1:2",
+      "orange",
+      [
+        "v42.4",
+        "h203.8"
+      ]
+    ],
+    [
+      "bz1:1",
+      "esp:GND.1",
+      "black",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "relay_kamar_tidur:VCC",
+      "esp:3V3",
+      "#8f4814",
+      [
+        "h-75.2",
+        "v703.8"
+      ]
+    ],
+    [
+      "relay_kamar_tidur:GND",
+      "esp:GND.1",
+      "black",
+      [
+        "h-65.6",
+        "v684.3"
+      ]
+    ],
+    [
+      "relay_kamar_tidur:IN",
+      "esp:D12",
+      "red",
+      [
+        "h-56",
+        "v656.3"
+      ]
+    ],
+    [
+      "relay_kamar_tidur:COM",
+      "esp:3V3",
+      "red",
+      [
+        "h50.8",
+        "v692.8"
+      ]
+    ],
+    [
+      "relay_kamar_tidur:NO",
+      "r_kamar_tidur:2",
+      "purple",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "r_kamar_tidur:1",
+      "led_kamar_tidur:A",
+      "purple",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "led_kamar_tidur:C",
+      "esp:GND.1",
+      "black",
+      [
+        "h32.2",
+        "v671.3"
+      ]
+    ],
+    [
+      "relay_kamar_ac:VCC",
+      "esp:3V3",
+      "#8f4814",
+      [
+        "h-38.4",
+        "v633.6"
+      ]
+    ],
+    [
+      "relay_kamar_ac:GND",
+      "esp:GND.1",
+      "black",
+      [
+        "h-28.8",
+        "v614.1"
+      ]
+    ],
+    [
+      "relay_kamar_ac:IN",
+      "esp:D13",
+      "red",
+      [
+        "h-19.2",
+        "v595.2"
+      ]
+    ],
+    [
+      "relay_kamar_ac:COM",
+      "esp:3V3",
+      "red",
+      [
+        "h39.6",
+        "v622.6"
+      ]
+    ],
+    [
+      "relay_kamar_ac:NO",
+      "r_kamar_ac:2",
+      "white",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "r_kamar_ac:1",
+      "led_kamar_ac:A",
+      "white",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "led_kamar_ac:C",
+      "esp:GND.1",
+      "black",
+      [
+        "h22.6",
+        "v601.3"
+      ]
+    ]
+  ],
+  "dependencies": {}
+}

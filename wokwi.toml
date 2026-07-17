@@ -1,0 +1,8 @@
+[wokwi]
+version = 1
+firmware = 'build/SmartHome_ESP32.ino.bin'
+elf = 'build/SmartHome_ESP32.ino.elf'
+
+[[net.forward]]
+from = "localhost:8080"
+to = "target:80"

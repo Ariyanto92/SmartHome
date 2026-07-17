@@ -1,0 +1,87 @@
+# Analisis Codebase SmartHome ESP32
+
+Proyek ini adalah prototipe sistem Smart Home sederhana berbasis **ESP32** menggunakan simulator **Wokwi**. Proyek ini memungkinkan pengendalian LED (lampu) melalui Web Server lokal yang diakses via browser, dengan LCD 16x2 I2C sebagai tampilan status IP address dan status koneksi.
+
+---
+
+## 📁 Struktur File Proyek
+
+Berikut adalah daftar file utama dalam proyek beserta fungsinya:
+1. **[SmartHome_ESP32.ino](file:///d:/PROJECT/SmartHome_ESP32/SmartHome_ESP32.ino)**: Kode utama Arduino/C++ untuk ESP32. Mengatur koneksi Wi-Fi, Web Server, LCD, dan kontrol LED.
+2. **[diagram.json](file:///d:/PROJECT/SmartHome_ESP32/diagram.json)**: Definisi komponen sirkuit dan koneksi pin untuk simulator Wokwi.
+3. **[wokwi.toml](file:///d:/PROJECT/SmartHome_ESP32/wokwi.toml)**: Konfigurasi emulator Wokwi, termasuk pencocokan file binary hasil build dan konfigurasi *network forwarding*.
+4. **[libraries.txt](file:///d:/PROJECT/SmartHome_ESP32/libraries.txt)**: Daftar pustaka/library eksternal yang diunduh otomatis oleh Wokwi (`LiquidCrystal I2C`).
+5. **[.vscode/settings.json](file:///d:/PROJECT/SmartHome_ESP32/.vscode/settings.json)**: Pengaturan build path VSCode Arduino agar output diletakkan di direktori `./build`.
+
+---
+
+## 🛠️ Analisis Perangkat Keras & Sirkuit ([diagram.json](file:///d:/PROJECT/SmartHome_ESP32/diagram.json))
+
+Sirkuit virtual di Wokwi tersusun atas komponen berikut:
+*   **ESP32 DevKit V1** (`wokwi-esp32-devkit-v1`) sebagai mikrokontroler utama.
+*   **LED Merah** (`wokwi-led`) terhubung ke pin **D2** (melalui resistor 220 Ohm ke GND). Pin D2 berfungsi untuk mengontrol status lampu (ON/OFF).
+*   **LCD 16x2 dengan Modul I2C** (`wokwi-lcd1602`):
+    *   **VCC** -> **3V3** ESP32
+    *   **GND** -> **GND** ESP32
+    *   **SDA** -> **D21** ESP32
+    *   **SCL** -> **D22** ESP32
+
+---
+
+## 💻 Analisis Kode Program ([SmartHome_ESP32.ino](file:///d:/PROJECT/SmartHome_ESP32/SmartHome_ESP32.ino))
+
+### 1. Libraries yang Digunakan
+```cpp
+#include <WiFi.h>              // Mengatur koneksi Wi-Fi ESP32
+#include <WebServer.h>         // Membuat HTTP Web Server
+#include <Wire.h>              // Komunikasi I2C
+#include <LiquidCrystal_I2C.h> // Driver untuk LCD I2C
+```
+
+### 2. Konfigurasi Jaringan & Server
+*   **SSID / Password**: Terhubung ke `Wokwi-GUEST` tanpa password (jaringan internet bawaan simulator Wokwi).
+*   **Port Web Server**: Port `80` (HTTP standar).
+*   **Alamat I2C LCD**: `0x27` dengan ukuran `16` kolom dan `2` baris.
+
+### 3. Endpoint Web Server (Routing)
+Aplikasi ini melayani 3 URL utama:
+*   **`/`**: Menampilkan halaman web utama yang berisi informasi status lampu saat ini (NYALA atau MATI) dan tombol interaktif untuk mengubah kondisinya.
+*   **`/led/on`**: Mengubah kondisi `ledPin` (D2) menjadi `HIGH` (nyala) lalu mengarahkan kembali/menyajikan halaman web dengan status terbaru.
+*   **`/led/off`**: Mengubah kondisi `ledPin` (D2) menjadi `LOW` (mati) lalu menyajikan halaman web dengan status terbaru.
+
+### 4. Alur Kerja Aplikasi (Workflow)
+
+```mermaid
+flowchart TD
+    Start([Mulai ESP32]) --> Init[Inisialisasi Serial & LCD]
+    Init --> ConnWiFi[Koneksi ke Wi-Fi Wokwi-GUEST]
+    ConnWiFi -->|Menunggu Koneksi| PrintDots[Tampilkan '.' pada LCD & Serial]
+    ConnWiFi -->|Terkoneksi| ShowIP[Tampilkan IP Address di LCD & Serial]
+    ShowIP --> SetupServer[Daftarkan Router / & /led/on & /led/off]
+    SetupServer --> StartServer[Mulai Web Server]
+    StartServer --> Loop[Looping: server.handleClient]
+    Loop --> WebReq{Ada Request Masuk?}
+    WebReq -->|Ya| RouteReq[Eksekusi Handler Route & update LED]
+    RouteReq --> Loop
+    WebReq -->|Tidak| Loop
+```
+
+---
+
+## 🌐 Akses Web Server melalui Emulator ([wokwi.toml](file:///d:/PROJECT/SmartHome_ESP32/wokwi.toml))
+
+Karena simulator berjalan di lingkungan virtual, Wokwi menyediakan fitur forwarding agar Anda dapat mengakses web server ESP32 dari web browser komputer asli:
+*   **Konfigurasi**:
+    ```toml
+    [[net.forward]]
+    from = "localhost:8080"
+    to = "target:80"
+    ```
+*   **Cara Akses**: Saat simulasi Wokwi berjalan, buka browser di komputer Anda dan akses **`http://localhost:8080`**. Request ini akan diteruskan ke web server ESP32 pada port `80`.
+
+---
+
+## 📈 Potensi Pengembangan / Improvement
+*   **Tampilan Halaman Web (UI)**: Halaman web saat ini menggunakan CSS sederhana dan bawaan string HTML yang digabungkan. Desainnya dapat ditingkatkan agar lebih modern (misalnya dengan tema gelap/glassmorphism yang premium).
+*   **Keamanan**: SSID & Password ditulis secara *hardcoded*. Bisa ditambahkan fitur WiFiManager agar dapat dikonfigurasi secara dinamis.
+*   **Kontrol Sensor**: Menambahkan sensor suhu (seperti DHT22) dan menampilkannya di LCD maupun halaman web.
