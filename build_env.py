@@ -29,9 +29,14 @@ def build():
         if env_val:
             config[key] = env_val
 
-    # 3. Format objek window.__ENV__
+    # 3. Bersihkan SUPABASE_URL jika ada akhiran /rest/v1 atau trailing slash
+    raw_supabase_url = config.get("SUPABASE_URL", "").rstrip("/")
+    if raw_supabase_url.endswith("/rest/v1"):
+        raw_supabase_url = raw_supabase_url[:-len("/rest/v1")].rstrip("/")
+
+    # 4. Format objek window.__ENV__
     env_payload = {
-        "SUPABASE_URL": config.get("SUPABASE_URL", ""),
+        "SUPABASE_URL": raw_supabase_url,
         "SUPABASE_ANON_KEY": config.get("SUPABASE_ANON_KEY", ""),
         "DEFAULT_APP_MODE": config.get("DEFAULT_APP_MODE", "supabase"),
         "ESP32_IP": config.get("ESP32_IP", "")
