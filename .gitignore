@@ -9,3 +9,8 @@ out/
 .vscode/
 .clangd
 .history/
+
+# Environment files & generated runtime configs
+.env
+config.js
+__pycache__/

@@ -1,8 +1,15 @@
 import os
+import build_env
 
 def generate():
-    # Read SmartHomeApps.html
-    html_path = "SmartHomeApps.html"
+    # Build config.js from .env and environment variables
+    try:
+        build_env.build()
+    except Exception as e:
+        print(f"Warning: Could not build config.js: {e}")
+
+    # Read index.html or SmartHomeApps.html
+    html_path = "index.html" if os.path.exists("index.html") else "SmartHomeApps.html"
     if not os.path.exists(html_path):
         print(f"Error: {html_path} not found.")
         return
@@ -10,128 +17,42 @@ def generate():
     with open(html_path, "r", encoding="utf-8") as f:
         html = f.read()
 
-    # Perform C++ raw string insertions for check boxes
-    # Card Green (Kamar Utama)
-    card_green_old = """                <div class="card" id="card-green" onclick="openRoomDetail('kamar-utama')">
-                    <div class="card-icon"><i class="fas fa-bed"></i></div>
-                    <div>
-                        <div class="card-title">Kamar Utama</div>
-                        <div class="card-subtitle">Lampu Hijau</div>
-                    </div>
-                    <div class="switch-container">
-                        <span class="status-text">OFF</span>
-                        <label class="switch" onclick="event.stopPropagation()">
-                            <input type="checkbox" onchange="toggleStatus(this)">"""
-    
-    card_green_new = """                <div class="card" id="card-green" onclick="openRoomDetail('kamar-utama')">
-                    <div class="card-icon"><i class="fas fa-bed"></i></div>
-                    <div>
-                        <div class="card-title">Kamar Utama</div>
-                        <div class="card-subtitle">Lampu Hijau</div>
-                    </div>
-                    <div class="switch-container">
-                        <span class="status-text">OFF</span>
-                        <label class="switch" onclick="event.stopPropagation()">
-                            <input type="checkbox" )raw-html" + greenChecked + R"raw-html( onchange="toggleStatus(this)">"""
+    # Extract existing WiFi credentials from SmartHome_ESP32.ino if it exists
+    existing_ssid = "Wokwi-GUEST"
+    existing_password = ""
+    ino_path = "SmartHome_ESP32.ino"
+    if os.path.exists(ino_path):
+        with open(ino_path, "r", encoding="utf-8") as f:
+            content = f.read()
+            import re
+            ssid_match = re.search(r'const\s+char\s*\*\s*ssid\s*=\s*"([^"]*)"', content)
+            pass_match = re.search(r'const\s+char\s*\*\s*password\s*=\s*"([^"]*)"', content)
+            if ssid_match:
+                existing_ssid = ssid_match.group(1)
+            if pass_match:
+                existing_password = pass_match.group(1)
 
-    # Card Red (Ruang Tamu)
-    card_red_old = """                <div class="card" id="card-red">
-                    <div class="card-icon"><i class="fas fa-couch"></i></div>
-                    <div>
-                        <div class="card-title">Ruang Tamu</div>
-                        <div class="card-subtitle">Lampu Merah</div>
-                    </div>
-                    <div class="switch-container">
-                        <span class="status-text">OFF</span>
-                        <label class="switch">
-                            <input type="checkbox" onchange="toggleStatus(this)">"""
-    
-    card_red_new = """                <div class="card" id="card-red">
-                    <div class="card-icon"><i class="fas fa-couch"></i></div>
-                    <div>
-                        <div class="card-title">Ruang Tamu</div>
-                        <div class="card-subtitle">Lampu Merah</div>
-                    </div>
-                    <div class="switch-container">
-                        <span class="status-text">OFF</span>
-                        <label class="switch">
-                            <input type="checkbox" )raw-html" + ledChecked + R"raw-html( onchange="toggleStatus(this)">"""
-
-    # Card Yellow (Dapur Modern)
-    card_yellow_old = """                <div class="card" id="card-yellow">
-                    <div class="card-icon"><i class="fas fa-utensils"></i></div>
-                    <div>
-                        <div class="card-title">Dapur Modern</div>
-                        <div class="card-subtitle">Lampu Kuning</div>
-                    </div>
-                    <div class="switch-container">
-                        <span class="status-text">OFF</span>
-                        <label class="switch">
-                            <input type="checkbox" onchange="toggleStatus(this)">"""
-    
-    card_yellow_new = """                <div class="card" id="card-yellow">
-                    <div class="card-icon"><i class="fas fa-utensils"></i></div>
-                    <div>
-                        <div class="card-title">Dapur Modern</div>
-                        <div class="card-subtitle">Lampu Kuning</div>
-                    </div>
-                    <div class="switch-container">
-                        <span class="status-text">OFF</span>
-                        <label class="switch">
-                            <input type="checkbox" )raw-html" + yellowChecked + R"raw-html( onchange="toggleStatus(this)">"""
-
-    # Card Blue (Kamar Mandi)
-    card_blue_old = """                <div class="card" id="card-blue">
-                    <div class="card-icon"><i class="fas fa-tint"></i></div>
-                    <div>
-                        <div class="card-title">Kamar Mandi</div>
-                        <div class="card-subtitle">Lampu Biru</div>
-                    </div>
-                    <div class="switch-container">
-                        <span class="status-text">OFF</span>
-                        <label class="switch">
-                            <input type="checkbox" onchange="toggleStatus(this)">"""
-    
-    card_blue_new = """                <div class="card" id="card-blue">
-                    <div class="card-icon"><i class="fas fa-tint"></i></div>
-                    <div>
-                        <div class="card-title">Kamar Mandi</div>
-                        <div class="card-subtitle">Lampu Biru</div>
-                    </div>
-                    <div class="switch-container">
-                        <span class="status-text">OFF</span>
-                        <label class="switch">
-                            <input type="checkbox" )raw-html" + blueChecked + R"raw-html( onchange="toggleStatus(this)">"""
-
-    # Card Orange (Alarm Rumah)
-    card_orange_old = """                <div class="card" id="card-orange">
-                    <div class="card-icon"><i class="fas fa-bell"></i></div>
-                    <div>
-                        <div class="card-title">Alarm Rumah</div>
-                        <div class="card-subtitle">Buzzer Relay</div>
-                    </div>
-                    <div class="switch-container">
-                        <span class="status-text">OFF</span>
-                        <label class="switch">
-                            <input type="checkbox" onchange="toggleStatus(this)">"""
-    
-    card_orange_new = """                <div class="card" id="card-orange">
-                    <div class="card-icon"><i class="fas fa-bell"></i></div>
-                    <div>
-                        <div class="card-title">Alarm Rumah</div>
-                        <div class="card-subtitle">Buzzer Relay</div>
-                    </div>
-                    <div class="switch-container">
-                        <span class="status-text">OFF</span>
-                        <label class="switch">
-                            <input type="checkbox" )raw-html" + alarmChecked + R"raw-html( onchange="toggleStatus(this)">"""
-
-    # Apply card replacements
-    html = html.replace(card_green_old, card_green_new)
-    html = html.replace(card_red_old, card_red_new)
-    html = html.replace(card_yellow_old, card_yellow_new)
-    html = html.replace(card_blue_old, card_blue_new)
-    html = html.replace(card_orange_old, card_orange_new)
+    # Perform C++ raw string insertions for check boxes using simple tag IDs
+    html = html.replace(
+        '<input type="checkbox" id="greenCheckbox" onchange="toggleStatus(this)">',
+        '<input type="checkbox" id="greenCheckbox" )raw-html" + greenChecked + R"raw-html( onchange="toggleStatus(this)">'
+    )
+    html = html.replace(
+        '<input type="checkbox" id="redCheckbox" onchange="toggleStatus(this)">',
+        '<input type="checkbox" id="redCheckbox" )raw-html" + ledChecked + R"raw-html( onchange="toggleStatus(this)">'
+    )
+    html = html.replace(
+        '<input type="checkbox" id="yellowCheckbox" onchange="toggleStatus(this)">',
+        '<input type="checkbox" id="yellowCheckbox" )raw-html" + yellowChecked + R"raw-html( onchange="toggleStatus(this)">'
+    )
+    html = html.replace(
+        '<input type="checkbox" id="blueCheckbox" onchange="toggleStatus(this)">',
+        '<input type="checkbox" id="blueCheckbox" )raw-html" + blueChecked + R"raw-html( onchange="toggleStatus(this)">'
+    )
+    html = html.replace(
+        '<input type="checkbox" id="orangeCheckbox" onchange="toggleStatus(this)">',
+        '<input type="checkbox" id="orangeCheckbox" )raw-html" + alarmChecked + R"raw-html( onchange="toggleStatus(this)">'
+    )
 
     # Modal device inputs
     html = html.replace(
@@ -168,6 +89,9 @@ const int alarmPin = 19;
 // New Bedroom Sub-devices Pins
 const int ledKamarTidurPin = 12;
 const int acKamarPin = 13;
+
+const int AVAILABLE_PINS[] = {2, 4, 5, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 25, 26, 27, 32, 33};
+const int NUM_PINS = sizeof(AVAILABLE_PINS) / sizeof(AVAILABLE_PINS[0]);
 
 String getHTML() {
   bool isLedOn = (digitalRead(ledPin) == HIGH);
@@ -278,9 +202,41 @@ void handleACSet() {
   server.send(200, "text/plain", temp);
 }
 
+void handleApiDevice() {
+  server.sendHeader("Access-Control-Allow-Origin", "*");
+  if (server.hasArg("pin") && server.hasArg("state")) {
+    int pinNumber = server.arg("pin").toInt();
+    int pinState = server.arg("state").toInt();
+    
+    bool isValidPin = false;
+    for (int i = 0; i < NUM_PINS; i++) {
+      if (AVAILABLE_PINS[i] == pinNumber) {
+        isValidPin = true;
+        break;
+      }
+    }
+    
+    if (isValidPin) {
+      digitalWrite(pinNumber, (pinState == 1) ? HIGH : LOW);
+      String response = "Pin " + String(pinNumber) + " set to " + String(pinState);
+      server.send(200, "text/plain", response);
+    } else {
+      server.send(400, "text/plain", "Invalid GPIO Pin");
+    }
+  } else {
+    server.send(400, "text/plain", "Missing pin or state");
+  }
+}
+
 void setup() {
   Serial.begin(115200);
   Serial.println("Starting ESP32...");
+
+  // Inisialisasi semua pin GPIO sebagai OUTPUT
+  for (int i = 0; i < NUM_PINS; i++) {
+    pinMode(AVAILABLE_PINS[i], OUTPUT);
+    digitalWrite(AVAILABLE_PINS[i], LOW);
+  }
 
   // Inisialisasi LCD
   lcd.init();
@@ -341,12 +297,20 @@ void setup() {
   server.on("/kamar-utama/ac/off", handleACOff);
   server.on("/kamar-utama/ac/set", handleACSet);
 
+  server.on("/api/device", handleApiDevice);
+  server.on("/config.js", []() {
+    server.send(200, "application/javascript", "window.__ENV__ = window.__ENV__ || {};");
+  });
+
   server.begin();
   Serial.println("Web server started.");
 }
 
 void loop() { server.handleClient(); }
 """
+
+    cpp_code = cpp_code.replace('const char *ssid = "Wokwi-GUEST";', f'const char *ssid = "{existing_ssid}";')
+    cpp_code = cpp_code.replace('const char *password = "";', f'const char *password = "{existing_password}";')
 
     with open("SmartHome_ESP32.ino", "w", encoding="utf-8") as f:
         f.write(cpp_code)
