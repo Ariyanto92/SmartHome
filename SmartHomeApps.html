@@ -1649,11 +1649,330 @@
             border-color: rgba(59, 130, 246, 0.4);
             color: #60a5fa;
         }
+
+        /* =========================================================================
+           PIN KEYPAD LOCK SCREEN & ACCESS CONTROL (DARK CYBER GLASSMORPHISM)
+           ========================================================================= */
+        .pin-lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 20%, #172554 0%, #070a13 85%);
+            z-index: 9990;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 32px 24px 24px 24px;
+            box-sizing: border-box;
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s, transform 0.4s;
+            border-radius: 32px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .pin-lock-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: scale(1.05);
+        }
+
+        .pin-lock-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+
+        .pin-shield-glow {
+            width: 62px;
+            height: 62px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 26px;
+            color: #38bdf8;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+            margin-bottom: 12px;
+            animation: shieldPulse 3s infinite ease-in-out;
+        }
+
+        @keyframes shieldPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(56, 189, 248, 0.2); }
+            50% { transform: scale(1.06); box-shadow: 0 0 35px rgba(56, 189, 248, 0.5); }
+        }
+
+        .pin-app-title {
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .pin-app-desc {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .pin-error-msg {
+            font-size: 11px;
+            font-weight: 700;
+            color: #f43f5e;
+            height: 16px;
+            line-height: 16px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        /* 4-Dots Display */
+        .pin-dots-container {
+            display: flex;
+            gap: 18px;
+            margin: 10px 0 16px 0;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pin-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .pin-dot.filled {
+            background: #38bdf8;
+            border-color: #38bdf8;
+            box-shadow: 0 0 16px #38bdf8, 0 0 6px #fff;
+            transform: scale(1.15);
+        }
+
+        .pin-dot.error {
+            background: #f43f5e !important;
+            border-color: #f43f5e !important;
+            box-shadow: 0 0 16px #f43f5e !important;
+        }
+
+        @keyframes pinShake {
+            0%, 100% { transform: translateX(0); }
+            15%, 55%, 85% { transform: translateX(-12px); }
+            35%, 75% { transform: translateX(12px); }
+        }
+
+        .pin-dots-container.shake {
+            animation: pinShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+
+        /* Keypad Grid */
+        .pin-keypad-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px 20px;
+            width: 100%;
+            max-width: 280px;
+            justify-items: center;
+        }
+
+        .pin-key-btn {
+            width: 66px;
+            height: 66px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(8px);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .pin-key-btn:hover {
+            background: rgba(59, 130, 246, 0.18);
+            border-color: rgba(59, 130, 246, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.2);
+        }
+
+        .pin-key-btn:active {
+            transform: scale(0.92);
+            background: rgba(56, 189, 248, 0.35);
+            border-color: #38bdf8;
+            box-shadow: 0 0 14px rgba(56, 189, 248, 0.4);
+        }
+
+        .pin-key-btn .num {
+            font-size: 23px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .pin-key-btn .sub {
+            font-size: 8.5px;
+            font-weight: 600;
+            color: var(--text-sub);
+            letter-spacing: 1px;
+            margin-top: 3px;
+        }
+
+        .pin-key-btn.pin-action-key {
+            background: transparent;
+            border-color: transparent;
+            color: var(--text-sub);
+            font-size: 18px;
+        }
+
+        .pin-key-btn.pin-action-key:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: #f8fafc;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .pin-key-btn.pin-action-key:active {
+            transform: scale(0.9);
+            color: #f43f5e;
+        }
+
+        /* Footer Info & Remember */
+        .pin-footer-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .pin-remember-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11.5px;
+            color: var(--text-sub);
+            cursor: pointer;
+        }
+
+        .pin-remember-label input[type="checkbox"] {
+            accent-color: #38bdf8;
+            cursor: pointer;
+        }
+
+        .pin-default-hint {
+            font-size: 10px;
+            color: rgba(148, 163, 184, 0.75);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 5px 12px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .pin-default-hint strong {
+            color: #e2e8f0;
+        }
+
     </style>
 </head>
 
 <body>
     <div class="app-container">
+        <!-- PIN Pad Lock Screen Overlay (Security & Role-Based Access) -->
+        <div id="pinLockScreen" class="pin-lock-overlay">
+            <div class="pin-lock-header">
+                <div class="pin-shield-glow">
+                    <i class="fas fa-shield-halved"></i>
+                </div>
+                <h2 class="pin-app-title">ARAYA SMART HOME</h2>
+                <p class="pin-app-desc" id="pinScreenPrompt">Masukkan 4 digit PIN untuk membuka akses</p>
+                <div class="pin-error-msg" id="pinErrorMessage"></div>
+            </div>
+
+            <!-- 4 PIN Dots -->
+            <div class="pin-dots-container" id="pinDotsContainer">
+                <div class="pin-dot" id="pdot-0"></div>
+                <div class="pin-dot" id="pdot-1"></div>
+                <div class="pin-dot" id="pdot-2"></div>
+                <div class="pin-dot" id="pdot-3"></div>
+            </div>
+
+            <!-- Keypad Grid -->
+            <div class="pin-keypad-grid">
+                <button type="button" class="pin-key-btn" onclick="pressPinDigit('1')">
+                    <span class="num">1</span>
+                    <span class="sub">&nbsp;</span>
+                </button>
+                <button type="button" class="pin-key-btn" onclick="pressPinDigit('2')">
+                    <span class="num">2</span>
+                    <span class="sub">ABC</span>
+                </button>
+                <button type="button" class="pin-key-btn" onclick="pressPinDigit('3')">
+                    <span class="num">3</span>
+                    <span class="sub">DEF</span>
+                </button>
+
+                <button type="button" class="pin-key-btn" onclick="pressPinDigit('4')">
+                    <span class="num">4</span>
+                    <span class="sub">GHI</span>
+                </button>
+                <button type="button" class="pin-key-btn" onclick="pressPinDigit('5')">
+                    <span class="num">5</span>
+                    <span class="sub">JKL</span>
+                </button>
+                <button type="button" class="pin-key-btn" onclick="pressPinDigit('6')">
+                    <span class="num">6</span>
+                    <span class="sub">MNO</span>
+                </button>
+
+                <button type="button" class="pin-key-btn" onclick="pressPinDigit('7')">
+                    <span class="num">7</span>
+                    <span class="sub">PQRS</span>
+                </button>
+                <button type="button" class="pin-key-btn" onclick="pressPinDigit('8')">
+                    <span class="num">8</span>
+                    <span class="sub">TUV</span>
+                </button>
+                <button type="button" class="pin-key-btn" onclick="pressPinDigit('9')">
+                    <span class="num">9</span>
+                    <span class="sub">WXYZ</span>
+                </button>
+
+                <button type="button" class="pin-key-btn pin-action-key" onclick="clearPinInput()" title="Bersihkan">
+                    <i class="fas fa-times"></i>
+                </button>
+                <button type="button" class="pin-key-btn" onclick="pressPinDigit('0')">
+                    <span class="num">0</span>
+                    <span class="sub">+</span>
+                </button>
+                <button type="button" class="pin-key-btn pin-action-key" onclick="deletePinDigit()" title="Hapus">
+                    <i class="fas fa-backspace"></i>
+                </button>
+            </div>
+
+            <!-- Footer: Remember & Hint -->
+            <div class="pin-footer-section">
+                <label class="pin-remember-label">
+                    <input type="checkbox" id="pinRememberMe" checked>
+                    <span>Ingat sesi di perangkat ini</span>
+                </label>
+                <div class="pin-default-hint">
+                    <i class="fas fa-key"></i> Default PIN &bull; <strong>Admin: 8888</strong> &bull; <strong>Keluarga: 1234</strong>
+                </div>
+            </div>
+        </div>
+
         <!-- Splash / Loading Screen -->
         <div id="appSplashScreen" class="splash-screen">
             <div class="splash-content">
@@ -1689,10 +2008,10 @@
                     <p id="liveTime" class="live-time-text">--:-- - ---</p>
                 </div>
                 <div style="display: flex; gap: 8px; align-items: center;">
-                    <div class="settings-btn" onclick="openSimulatorModal()" title="Virtual ESP32 Inspector">
+                    <div class="settings-btn" id="headerInspectorBtn" onclick="openSimulatorModal()" title="Virtual ESP32 Inspector">
                         <i class="fas fa-microchip" style="color: #10b981;"></i>
                     </div>
-                    <div class="settings-btn" onclick="configureIP()" title="Pengaturan Sistem">
+                    <div class="settings-btn" id="headerSettingsBtn" onclick="configureIP()" title="Pengaturan Sistem">
                         <i class="fas fa-cog"></i>
                     </div>
                 </div>
@@ -2335,10 +2654,13 @@
             <div class="profile-modal-header" style="text-align: center; margin-bottom: 20px;">
                 <div class="profile-avatar"
                     style="width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); margin: 0 auto 12px auto; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); border: 3px solid rgba(255, 255, 255, 0.2);">
-                    <i class="fas fa-user-shield" style="font-size: 32px; color: #ffffff;"></i>
+                    <i id="profileAvatarIcon" class="fas fa-user-shield" style="font-size: 32px; color: #ffffff;"></i>
                 </div>
-                <h2 style="font-size: 18px; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">Admin Smart Home</h2>
-                <p style="font-size: 12px; color: var(--text-sub); font-weight: 500;">Pengendali Utama • ESP32 Controller</p>
+                <h2 id="profileRoleName" style="font-size: 18px; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">Admin Smart Home</h2>
+                <p id="profileRoleDesc" style="font-size: 12px; color: var(--text-sub); font-weight: 500;">Pengendali Utama • Akses Penuh</p>
+                <div style="margin-top: 6px;">
+                    <span id="profileRoleBadge" style="font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); text-transform: uppercase;">ADMIN</span>
+                </div>
             </div>
 
             <!-- System Stats Grid -->
@@ -2350,32 +2672,48 @@
                     </div>
                 </div>
                 <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 16px; padding: 14px; text-align: center;">
-                    <div style="font-size: 11px; color: var(--text-sub); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Alamat IP</div>
-                    <div id="profileIpDisplay" style="font-size: 13px; font-weight: 700; color: #3b82f6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        --.--.--.--
+                    <div style="font-size: 11px; color: var(--text-sub); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Mode / Jaringan</div>
+                    <div id="profileIpDisplay" style="font-size: 12px; font-weight: 700; color: #3b82f6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        Cloud Realtime
                     </div>
                 </div>
             </div>
 
             <!-- Profile Menu Items -->
-            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
-                <div class="profile-option-btn" onclick="configureIPFromProfile()">
-                    <div style="display: flex; align-items: center; gap: 12px; color: var(--text-main); font-size: 14px; font-weight: 600;">
-                        <i class="fas fa-wifi" style="color: #3b82f6; font-size: 16px; width: 20px;"></i> Setelan Alamat IP
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px;">
+                <div id="profileAdminSection" style="display: flex; flex-direction: column; gap: 10px;">
+                    <div class="profile-option-btn" onclick="openChangePinModal()">
+                        <div style="display: flex; align-items: center; gap: 12px; color: var(--text-main); font-size: 14px; font-weight: 600;">
+                            <i class="fas fa-key" style="color: #f59e0b; font-size: 16px; width: 20px;"></i> Ubah PIN Keamanan
+                        </div>
+                        <i class="fas fa-chevron-right" style="color: var(--text-sub); font-size: 12px;"></i>
                     </div>
-                    <i class="fas fa-chevron-right" style="color: var(--text-sub); font-size: 12px;"></i>
+                    <div class="profile-option-btn" onclick="configureIPFromProfile()">
+                        <div style="display: flex; align-items: center; gap: 12px; color: var(--text-main); font-size: 14px; font-weight: 600;">
+                            <i class="fas fa-sliders" style="color: #3b82f6; font-size: 16px; width: 20px;"></i> Setelan Sistem & Cloud
+                        </div>
+                        <i class="fas fa-chevron-right" style="color: var(--text-sub); font-size: 12px;"></i>
+                    </div>
+                    <div class="profile-option-btn" onclick="triggerAddRoomFromProfile()">
+                        <div style="display: flex; align-items: center; gap: 12px; color: var(--text-main); font-size: 14px; font-weight: 600;">
+                            <i class="fas fa-plus-circle" style="color: var(--green); font-size: 16px; width: 20px;"></i> Tambah Ruangan Baru
+                        </div>
+                        <i class="fas fa-chevron-right" style="color: var(--text-sub); font-size: 12px;"></i>
+                    </div>
+                    <div class="profile-option-btn" onclick="resetStaticRoomsFromProfile()">
+                        <div style="display: flex; align-items: center; gap: 12px; color: var(--text-main); font-size: 14px; font-weight: 600;">
+                            <i class="fas fa-undo" style="color: var(--yellow); font-size: 16px; width: 20px;"></i> Pulihkan Ruangan Bawaan
+                        </div>
+                        <i class="fas fa-chevron-right" style="color: var(--text-sub); font-size: 12px;"></i>
+                    </div>
                 </div>
-                <div class="profile-option-btn" onclick="triggerAddRoomFromProfile()">
-                    <div style="display: flex; align-items: center; gap: 12px; color: var(--text-main); font-size: 14px; font-weight: 600;">
-                        <i class="fas fa-plus-circle" style="color: var(--green); font-size: 16px; width: 20px;"></i> Tambah Ruangan Baru
+
+                <!-- Tombol Kunci Layar (Logout) -->
+                <div class="profile-option-btn" onclick="lockAppScreen()" style="background: rgba(239, 68, 68, 0.08); border-color: rgba(239, 68, 68, 0.25);">
+                    <div style="display: flex; align-items: center; gap: 12px; color: #f87171; font-size: 14px; font-weight: 600;">
+                        <i class="fas fa-lock" style="color: #ef4444; font-size: 16px; width: 20px;"></i> Kunci Layar / Ganti Akun
                     </div>
-                    <i class="fas fa-chevron-right" style="color: var(--text-sub); font-size: 12px;"></i>
-                </div>
-                <div class="profile-option-btn" onclick="resetStaticRoomsFromProfile()">
-                    <div style="display: flex; align-items: center; gap: 12px; color: var(--text-main); font-size: 14px; font-weight: 600;">
-                        <i class="fas fa-undo" style="color: var(--yellow); font-size: 16px; width: 20px;"></i> Pulihkan Ruangan Bawaan
-                    </div>
-                    <i class="fas fa-chevron-right" style="color: var(--text-sub); font-size: 12px;"></i>
+                    <i class="fas fa-sign-out-alt" style="color: #ef4444; font-size: 12px;"></i>
                 </div>
             </div>
 
@@ -2389,10 +2727,331 @@
         </div>
     </div>
 
+    <!-- Modal Ubah PIN Keamanan (Admin Only) -->
+    <div id="changePinModal" class="modal-overlay" onclick="closeChangePinModal(event)">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <div style="font-size: 16px; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-key" style="color: #f59e0b;"></i> Ubah PIN Keamanan
+                </div>
+                <button onclick="closeChangePinModal(null)" style="background: transparent; border: none; color: var(--text-sub); font-size: 16px; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <p style="font-size: 11px; color: var(--text-sub); margin-bottom: 16px;">
+                Sebagai Admin, Anda dapat mengatur ulang PIN 4 digit untuk akses Admin dan akun Keluarga.
+            </p>
+
+            <div class="modal-input-group" style="margin-bottom: 12px;">
+                <label class="modal-input-label" for="newAdminPinInput">PIN Admin Baru (4 Digit)</label>
+                <input type="password" id="newAdminPinInput" class="modal-input" maxlength="4" placeholder="Contoh: 8888" inputmode="numeric" pattern="[0-9]*">
+            </div>
+
+            <div class="modal-input-group" style="margin-bottom: 18px;">
+                <label class="modal-input-label" for="newFamilyPinInput">PIN Keluarga Baru (4 Digit)</label>
+                <input type="password" id="newFamilyPinInput" class="modal-input" maxlength="4" placeholder="Contoh: 1234" inputmode="numeric" pattern="[0-9]*">
+            </div>
+
+            <div class="modal-buttons">
+                <button class="modal-btn cancel-btn" onclick="closeChangePinModal(null)" style="flex: 1;">Batal</button>
+                <button class="modal-btn confirm-btn" onclick="saveNewPins()" style="flex: 1; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">Simpan PIN</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Notifications Container -->
     <div id="toastContainer" class="toast-container"></div>
 
     <script>
+
+        // =========================================================================
+        // SECURITY & ACCESS CONTROL: PIN PAD & ROLE-BASED ACCESS
+        // =========================================================================
+        let currentUserRole = null; // 'admin' | 'family'
+        let enteredPin = "";
+        const DEFAULT_ADMIN_PIN = "8888";
+        const DEFAULT_FAMILY_PIN = "1234";
+
+        function getAdminPin() {
+            return localStorage.getItem("app_pin_admin") || DEFAULT_ADMIN_PIN;
+        }
+
+        function getFamilyPin() {
+            return localStorage.getItem("app_pin_family") || DEFAULT_FAMILY_PIN;
+        }
+
+        function playPinAudioTone(type) {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                if (type === 'tap') {
+                    osc.frequency.setValueAtTime(650, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.04, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.05);
+                } else if (type === 'error') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, ctx.currentTime);
+                    osc.frequency.setValueAtTime(160, ctx.currentTime + 0.12);
+                    gain.gain.setValueAtTime(0.12, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.35);
+                } else if (type === 'success') {
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+                    osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.08);
+                    gain.gain.setValueAtTime(0.06, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.25);
+                }
+            } catch (e) {}
+        }
+
+        function pressPinDigit(digit) {
+            if (enteredPin.length >= 4) return;
+            enteredPin += digit;
+            playPinAudioTone('tap');
+            updatePinDotsUI();
+
+            if (enteredPin.length === 4) {
+                setTimeout(verifyEnteredPin, 120);
+            }
+        }
+
+        function deletePinDigit() {
+            if (enteredPin.length > 0) {
+                enteredPin = enteredPin.slice(0, -1);
+                playPinAudioTone('tap');
+                updatePinDotsUI();
+                clearPinError();
+            }
+        }
+
+        function clearPinInput() {
+            enteredPin = "";
+            updatePinDotsUI();
+            clearPinError();
+        }
+
+        function updatePinDotsUI() {
+            for (let i = 0; i < 4; i++) {
+                const dot = document.getElementById(`pdot-${i}`);
+                if (dot) {
+                    if (i < enteredPin.length) dot.classList.add("filled");
+                    else dot.classList.remove("filled");
+                }
+            }
+        }
+
+        function clearPinError() {
+            const errBox = document.getElementById("pinErrorMessage");
+            if (errBox) errBox.innerText = "";
+            const dotsCont = document.getElementById("pinDotsContainer");
+            if (dotsCont) dotsCont.classList.remove("shake");
+            for (let i = 0; i < 4; i++) {
+                const dot = document.getElementById(`pdot-${i}`);
+                if (dot) dot.classList.remove("error");
+            }
+        }
+
+        function triggerPinError() {
+            playPinAudioTone('error');
+            const errBox = document.getElementById("pinErrorMessage");
+            if (errBox) errBox.innerText = "PIN Salah! Silakan coba lagi.";
+
+            const dotsCont = document.getElementById("pinDotsContainer");
+            if (dotsCont) dotsCont.classList.add("shake");
+
+            for (let i = 0; i < 4; i++) {
+                const dot = document.getElementById(`pdot-${i}`);
+                if (dot) dot.classList.add("error");
+            }
+
+            setTimeout(() => {
+                clearPinInput();
+            }, 750);
+        }
+
+        function verifyEnteredPin() {
+            const adminPin = getAdminPin();
+            const familyPin = getFamilyPin();
+
+            if (enteredPin === adminPin) {
+                unlockAppWithRole('admin');
+            } else if (enteredPin === familyPin) {
+                unlockAppWithRole('family');
+            } else {
+                triggerPinError();
+            }
+        }
+
+        function unlockAppWithRole(role, isSilent = false) {
+            currentUserRole = role;
+            const rememberMe = document.getElementById("pinRememberMe");
+            const shouldRemember = rememberMe ? rememberMe.checked : true;
+
+            if (shouldRemember) {
+                localStorage.setItem("smart_home_auth_role", role);
+            } else {
+                sessionStorage.setItem("smart_home_auth_role", role);
+                localStorage.removeItem("smart_home_auth_role");
+            }
+
+            applyRolePermissions(role);
+
+            const lockScreen = document.getElementById("pinLockScreen");
+            if (lockScreen) {
+                lockScreen.classList.add("hidden");
+            }
+
+            clearPinInput();
+
+            if (!isSilent) {
+                playPinAudioTone('success');
+                showToast(role === 'admin' ? "👑 Selamat Datang, Admin!" : "🏠 Selamat Datang, Anggota Keluarga!");
+                logSerial("AUTH", `Pengguna login sebagai: ${role.toUpperCase()}`);
+            }
+        }
+
+        function lockAppScreen() {
+            currentUserRole = null;
+            sessionStorage.removeItem("smart_home_auth_role");
+            localStorage.removeItem("smart_home_auth_role");
+
+            closeSettings();
+            closeProfileModal(null);
+            closeSimulatorModal(null);
+            closeAddRoomModal(null);
+            closeAddSubDeviceModal(null);
+            if (typeof closeChangePinModal === 'function') closeChangePinModal(null);
+
+            const lockScreen = document.getElementById("pinLockScreen");
+            if (lockScreen) {
+                lockScreen.classList.remove("hidden");
+            }
+            clearPinInput();
+            showToast("Aplikasi terkunci");
+            logSerial("AUTH", "Sesi berakhir. Layar terkunci.");
+        }
+
+        function applyRolePermissions(role) {
+            const isAdm = (role === 'admin');
+
+            const settingsBtn = document.getElementById("headerSettingsBtn");
+            if (settingsBtn) settingsBtn.style.display = isAdm ? "flex" : "none";
+
+            const inspectorBtn = document.getElementById("headerInspectorBtn");
+            if (inspectorBtn) inspectorBtn.style.display = isAdm ? "flex" : "none";
+
+            const profileAvatar = document.getElementById("profileAvatarIcon");
+            if (profileAvatar) {
+                profileAvatar.className = isAdm ? "fas fa-user-shield" : "fas fa-users";
+            }
+
+            const profileName = document.getElementById("profileRoleName");
+            if (profileName) {
+                profileName.innerText = isAdm ? "Admin Smart Home" : "Anggota Keluarga";
+            }
+
+            const profileDesc = document.getElementById("profileRoleDesc");
+            if (profileDesc) {
+                profileDesc.innerText = isAdm ? "Pengendali Utama • Akses Penuh" : "Mode Keluarga • Kontrol Sakelar";
+            }
+
+            const profileBadge = document.getElementById("profileRoleBadge");
+            if (profileBadge) {
+                profileBadge.innerText = isAdm ? "ADMIN" : "KELUARGA";
+                profileBadge.style.color = isAdm ? "#f59e0b" : "#38bdf8";
+                profileBadge.style.background = isAdm ? "rgba(245, 158, 11, 0.15)" : "rgba(56, 189, 248, 0.15)";
+                profileBadge.style.border = isAdm ? "1px solid rgba(245, 158, 11, 0.3)" : "1px solid rgba(56, 189, 248, 0.3)";
+            }
+
+            const adminSec = document.getElementById("profileAdminSection");
+            if (adminSec) adminSec.style.display = isAdm ? "flex" : "none";
+
+            const modeBadge = document.getElementById("appModeBadge");
+            if (modeBadge) {
+                modeBadge.style.cursor = isAdm ? "pointer" : "default";
+                modeBadge.onclick = isAdm ? () => openSimulatorModal() : null;
+            }
+        }
+
+        function openChangePinModal() {
+            closeProfileModal(null);
+            const m = document.getElementById("changePinModal");
+            if (m) {
+                document.getElementById("newAdminPinInput").value = "";
+                document.getElementById("newFamilyPinInput").value = "";
+                m.classList.add("active");
+            }
+        }
+
+        function closeChangePinModal(e) {
+            const m = document.getElementById("changePinModal");
+            if (!e || e.target === m) {
+                if (m) m.classList.remove("active");
+            }
+        }
+
+        function saveNewPins() {
+            const adminInp = document.getElementById("newAdminPinInput").value.trim();
+            const familyInp = document.getElementById("newFamilyPinInput").value.trim();
+
+            if (adminInp.length !== 4 || isNaN(adminInp)) {
+                showToast("PIN Admin harus terdiri dari 4 digit angka!", "error");
+                return;
+            }
+            if (familyInp.length !== 4 || isNaN(familyInp)) {
+                showToast("PIN Keluarga harus terdiri dari 4 digit angka!", "error");
+                return;
+            }
+            if (adminInp === familyInp) {
+                showToast("PIN Admin dan PIN Keluarga tidak boleh sama!", "error");
+                return;
+            }
+
+            localStorage.setItem("app_pin_admin", adminInp);
+            localStorage.setItem("app_pin_family", familyInp);
+
+            if (supabaseClient) {
+                supabaseClient.from('settings').upsert([
+                    { key: 'admin_pin', value: adminInp, updated_at: new Date().toISOString() },
+                    { key: 'family_pin', value: familyInp, updated_at: new Date().toISOString() }
+                ]).then(({ error }) => {
+                    if (!error) logSerial("SYNC", "PIN tersinkronisasi ke cloud Supabase.");
+                });
+            }
+
+            closeChangePinModal(null);
+            showToast("PIN Keamanan berhasil diperbarui!");
+            logSerial("SECURITY", "PIN Admin dan Keluarga berhasil diubah.");
+        }
+
+        document.addEventListener("keydown", (e) => {
+            const lockScreen = document.getElementById("pinLockScreen");
+            if (!lockScreen || lockScreen.classList.contains("hidden")) return;
+
+            if (e.key >= '0' && e.key <= '9') {
+                pressPinDigit(e.key);
+            } else if (e.key === 'Backspace') {
+                deletePinDigit();
+            } else if (e.key === 'Escape') {
+                clearPinInput();
+            }
+        });
+
         const modal = document.getElementById("settingsModal");
         const ipInput = document.getElementById("ipInput");
         let esp32IP = (window.__ENV__ && window.__ENV__.ESP32_IP) || localStorage.getItem("esp32_ip") || "";
@@ -2565,6 +3224,15 @@
                         syncDomFromVirtualPin(String(d.gpio), d.state);
                     });
                     logSerial("SUPABASE-OK", `Sukses memuat ${devices.length} perangkat dari Supabase.`);
+                }
+
+                // Sinkronisasi PIN Keamanan dari Supabase
+                const { data: dbSettings } = await supabaseClient.from('settings').select('*');
+                if (dbSettings && dbSettings.length > 0) {
+                    dbSettings.forEach(s => {
+                        if (s.key === 'admin_pin' && s.value) localStorage.setItem("app_pin_admin", s.value);
+                        if (s.key === 'family_pin' && s.value) localStorage.setItem("app_pin_family", s.value);
+                    });
                 }
             } catch (e) {
                 logSerial("SUPABASE-ERR", `Gagal memuat data: ${e.message}`, "err");
@@ -2746,7 +3414,7 @@
                             room_name: "Smart Home",
                             action: intState === 1 ? "TURN_ON" : "TURN_OFF",
                             state: intState,
-                            triggered_by: "Web Client"
+                            triggered_by: currentUserRole === 'admin' ? 'Admin' : (currentUserRole === 'family' ? 'Keluarga' : 'Web Client')
                         })
                         .then(() => {});
                 } else {
@@ -2901,9 +3569,23 @@
         function configureIP() {
             ipInput.value = esp32IP;
             const sbUrlInp = document.getElementById("supabaseUrlInput");
-            if (sbUrlInp) sbUrlInp.value = supabaseUrl;
+            if (sbUrlInp) {
+                sbUrlInp.value = supabaseUrl;
+                if (window.__ENV__ && window.__ENV__.SUPABASE_URL) {
+                    sbUrlInp.readOnly = true;
+                    sbUrlInp.style.opacity = "0.75";
+                    sbUrlInp.title = "Terkonfigurasi via Cloud Netlify (.env)";
+                }
+            }
             const sbKeyInp = document.getElementById("supabaseKeyInput");
-            if (sbKeyInp) sbKeyInp.value = supabaseAnonKey;
+            if (sbKeyInp) {
+                sbKeyInp.value = supabaseAnonKey;
+                if (window.__ENV__ && window.__ENV__.SUPABASE_ANON_KEY) {
+                    sbKeyInp.readOnly = true;
+                    sbKeyInp.style.opacity = "0.75";
+                    sbKeyInp.title = "Terkonfigurasi via Cloud Netlify (.env)";
+                }
+            }
 
             const radios = document.getElementsByName("appModeRadio");
             for (let r of radios) {
@@ -3020,7 +3702,13 @@
             const statusBadge = document.getElementById("profileStatusBadge");
 
             if (ipDisplay) {
-                ipDisplay.innerText = esp32IP ? esp32IP : "localhost (Wokwi)";
+                if (appMode === "supabase") {
+                    ipDisplay.innerText = "Cloud Realtime";
+                } else if (esp32IP) {
+                    ipDisplay.innerText = esp32IP;
+                } else {
+                    ipDisplay.innerText = "localhost (Wokwi)";
+                }
             }
             if (statusBadge) {
                 statusBadge.innerHTML = `<span style="width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); display: inline-block;"></span> Online`;
@@ -4159,6 +4847,10 @@
                     e.preventDefault();
                     e.stopPropagation();
 
+                    if (currentUserRole !== 'admin') {
+                        showToast("Hanya Admin yang dapat menghapus ruangan/perangkat!", "error");
+                        return;
+                    }
                     if (action.classList.contains('confirming')) {
                         // Confirmed! Clear timeout and delete
                         if (action.confirmTimeout) clearTimeout(action.confirmTimeout);
@@ -4321,7 +5013,16 @@
                         const splash = document.getElementById("appSplashScreen");
                         if (splash) {
                             splash.classList.add("fade-out");
-                            setTimeout(() => splash.remove(), 600);
+                            setTimeout(() => {
+                                splash.remove();
+                                const savedRole = localStorage.getItem("smart_home_auth_role") || sessionStorage.getItem("smart_home_auth_role");
+                                if (savedRole && (savedRole === 'admin' || savedRole === 'family')) {
+                                    unlockAppWithRole(savedRole, true);
+                                } else {
+                                    const lockScreen = document.getElementById("pinLockScreen");
+                                    if (lockScreen) lockScreen.classList.remove("hidden");
+                                }
+                            }, 600);
                         }
                     }, 400);
                 }

@@ -71,7 +71,9 @@ INSERT INTO public.settings (key, value)
 VALUES
     ('esp32_ip', ''),
     ('ac_temp', '24'),
-    ('admin_name', 'Admin Smart Home')
+    ('admin_name', 'Admin Smart Home'),
+    ('admin_pin', '8888'),
+    ('family_pin', '1234')
 ON CONFLICT (key) DO NOTHING;
 
 -- 6. Aktifkan Realtime Replication untuk Tabel devices dan activity_logs
