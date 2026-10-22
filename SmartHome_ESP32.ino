@@ -2695,6 +2695,8 @@ String getHTML() {
                     style="flex: 1; background: var(--green); color: #fff;">Simpan</button>
             </div>
         </div>
+    </div>
+
     <!-- User Profile Modal (Bottom Sheet style) -->
     <div id="profileModal" class="modal-overlay" onclick="closeProfileModal(event)">
         <div class="modal-card" onclick="event.stopPropagation()">
@@ -3747,6 +3749,10 @@ String getHTML() {
             const profileModal = document.getElementById("profileModal");
             const ipDisplay = document.getElementById("profileIpDisplay");
             const statusBadge = document.getElementById("profileStatusBadge");
+
+            if (currentUserRole) {
+                applyRolePermissions(currentUserRole);
+            }
 
             if (ipDisplay) {
                 if (appMode === "supabase") {
