@@ -298,6 +298,25 @@
             /* Hide scrollbar for Chrome/Safari */
         }
 
+        /* Sensors / Telemetry scrollable flex container */
+        .sensors-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin-right: -10px;
+            padding-right: 10px;
+            padding-bottom: 140px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .sensors-container::-webkit-scrollbar {
+            display: none;
+        }
+
         .card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -1894,12 +1913,17 @@
             border-radius: 24px;
             padding: 18px 20px;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             margin-bottom: 4px;
+            flex-shrink: 0;
+            width: 100%;
+            height: auto;
+            min-height: fit-content;
+            box-sizing: border-box;
         }
 
         .telemetry-card:hover {
@@ -2604,7 +2628,7 @@
             <!-- Devices Control Cards Grid -->
             <div class="grid-container" id="devices-grid" style="display: none;"></div>
             <!-- Telemetry & Sensor Monitoring Grid (Water Flow, Energy, Climate) -->
-            <div class="grid-container" id="sensors-grid" style="display: none;">
+            <div class="sensors-container" id="sensors-grid" style="display: none;">
                 <!-- 1. Smart Electricity Energy Meter Card -->
                 <div class="telemetry-card energy-card">
                     <div class="telemetry-header">
@@ -4513,7 +4537,7 @@
                 roomsGrid.style.display = "none";
                 devicesGrid.style.display = "none";
                 if (sensorsGrid) {
-                    sensorsGrid.style.display = "grid";
+                    sensorsGrid.style.display = "flex";
                     updateTelemetryUI();
                 }
             }
