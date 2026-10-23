@@ -1931,6 +1931,432 @@ String getHTML() {
             color: #e2e8f0;
         }
 
+
+        /* =========================================================================
+           TELEMETRY & SENSOR MONITORING WIDGETS (DARK CYBER GLASSMORPHISM)
+           ========================================================================= */
+        .telemetry-card {
+            background: rgba(17, 24, 39, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 18px 20px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 4px;
+        }
+
+        .telemetry-card:hover {
+            border-color: rgba(255, 255, 255, 0.16);
+            transform: translateY(-2px);
+            box-shadow: 0 14px 34px -10px rgba(0, 0, 0, 0.6);
+        }
+
+        .telemetry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .telemetry-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .telemetry-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .telemetry-icon-box.energy {
+            background: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+            box-shadow: 0 0 16px rgba(245, 158, 11, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .telemetry-icon-box.water {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .telemetry-icon-box.climate {
+            background: rgba(168, 85, 247, 0.15);
+            color: #a855f7;
+            box-shadow: 0 0 16px rgba(168, 85, 247, 0.2);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .telemetry-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #f8fafc;
+            letter-spacing: -0.2px;
+        }
+
+        .telemetry-subtitle {
+            font-size: 10px;
+            font-weight: 500;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+
+        .telemetry-badge-live {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            padding: 4px 8px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #e2e8f0;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+        }
+
+        .live-dot.yellow { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
+        .live-dot.cyan { background: #38bdf8; box-shadow: 0 0 8px #38bdf8; }
+        .live-dot.purple { background: #a855f7; box-shadow: 0 0 8px #a855f7; }
+
+        .telemetry-main-value {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .big-number {
+            font-size: 38px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .big-number.energy-val {
+            color: #fbbf24;
+            text-shadow: 0 0 25px rgba(245, 158, 11, 0.4);
+        }
+
+        .big-number.water-val {
+            color: #38bdf8;
+            text-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+        }
+
+        .unit-label {
+            font-size: 12px;
+            font-weight: 800;
+            color: #94a3b8;
+            letter-spacing: 0.5px;
+        }
+
+        .telemetry-progress-wrapper {
+            margin-bottom: 14px;
+        }
+
+        .progress-info-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            margin-bottom: 6px;
+        }
+
+        .telemetry-progress-track {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .telemetry-progress-bar {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .telemetry-progress-bar.energy-bar {
+            background: linear-gradient(90deg, #f59e0b 0%, #ef4444 100%);
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+        }
+
+        .telemetry-subgrid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .submetric-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 8px 4px;
+            text-align: center;
+        }
+
+        .submetric-lbl {
+            font-size: 8.5px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+
+        .submetric-val {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #f1f5f9;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .submetric-val.text-green { color: #10b981; }
+
+        .telemetry-footer-banner {
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-lbl {
+            font-size: 10px;
+            color: #94a3b8;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .footer-val {
+            font-size: 14px;
+            font-weight: 800;
+            color: #f8fafc;
+            margin-top: 2px;
+        }
+
+        .footer-val.cost {
+            color: #10b981;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        }
+
+        .footer-divider {
+            width: 1px;
+            height: 26px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Water Status & Wave animation */
+        .water-status-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .water-status-pill {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .water-status-pill.flowing {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .water-status-pill.idle {
+            background: rgba(255, 255, 255, 0.04);
+            color: #94a3b8;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .water-wave-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            height: 18px;
+        }
+
+        .wave-bar {
+            width: 3.5px;
+            background: #38bdf8;
+            border-radius: 4px;
+            height: 6px;
+            transition: height 0.2s ease;
+        }
+
+        .water-wave-indicator.active .wave-bar {
+            animation: wavePulse 1s ease-in-out infinite alternate;
+        }
+
+        .water-wave-indicator.active .wave-bar.b1 { animation-delay: 0.1s; }
+        .water-wave-indicator.active .wave-bar.b2 { animation-delay: 0.3s; }
+        .water-wave-indicator.active .wave-bar.b3 { animation-delay: 0.5s; }
+        .water-wave-indicator.active .wave-bar.b4 { animation-delay: 0.2s; }
+        .water-wave-indicator.active .wave-bar.b5 { animation-delay: 0.4s; }
+
+        @keyframes wavePulse {
+            0% { height: 4px; opacity: 0.4; }
+            100% { height: 18px; opacity: 1; box-shadow: 0 0 8px #38bdf8; }
+        }
+
+        /* Climate Dual Circular Gauges */
+        .climate-gauges-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .gauge-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 18px;
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .svg-gauge-wrapper {
+            position: relative;
+            width: 104px;
+            height: 104px;
+        }
+
+        .circular-chart {
+            display: block;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .circle-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.06);
+            stroke-width: 7;
+        }
+
+        .circle-bar {
+            fill: none;
+            stroke-width: 7.5;
+            stroke-linecap: round;
+            transition: stroke-dasharray 0.6s ease;
+        }
+
+        .circle-bar.orange {
+            stroke: #f97316;
+            filter: drop-shadow(0 0 6px rgba(249, 115, 22, 0.6));
+        }
+
+        .circle-bar.cyan {
+            stroke: #06b6d4;
+            filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.6));
+        }
+
+        .gauge-center-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gauge-icon {
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+
+        .gauge-icon.temp { color: #f97316; }
+        .gauge-icon.humidity { color: #06b6d4; }
+
+        .gauge-value {
+            font-size: 17px;
+            font-weight: 800;
+            color: #f8fafc;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .gauge-caption {
+            font-size: 8.5px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .gauge-footer-badge {
+            font-size: 10px;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .badge-dot.orange { background: #f97316; box-shadow: 0 0 6px #f97316; }
+        .badge-dot.green { background: #10b981; box-shadow: 0 0 6px #10b981; }
+
+        .telemetry-toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--text-sub);
+            cursor: pointer;
+        }
+
+        .telemetry-toggle-label input {
+            accent-color: #38bdf8;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 
@@ -2084,6 +2510,7 @@ String getHTML() {
                 <div class="tab-control" style="margin-bottom: 0; display: flex; width: 100%;">
                     <button class="tab-btn active" onclick="toggleTab(this)" style="flex: 1;">Room</button>
                     <button class="tab-btn" onclick="toggleTab(this)" style="flex: 1;">Devices</button>
+                    <button class="tab-btn" onclick="toggleTab(this)" style="flex: 1;"><i class="fas fa-chart-pie" style="margin-right: 4px; font-size: 11px;"></i>Sensors</button>
                 </div>
             </div>
 
@@ -2223,6 +2650,235 @@ String getHTML() {
             </div>
             <!-- Devices Control Cards Grid -->
             <div class="grid-container" id="devices-grid" style="display: none;"></div>
+            <!-- Telemetry & Sensor Monitoring Grid (Water Flow, Energy, Climate) -->
+            <div class="grid-container" id="sensors-grid" style="display: none;">
+                <!-- 1. Smart Electricity Energy Meter Card -->
+                <div class="telemetry-card energy-card">
+                    <div class="telemetry-header">
+                        <div class="telemetry-header-left">
+                            <div class="telemetry-icon-box energy">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div>
+                                <div class="telemetry-title">Pemakaian Listrik (AC 220V)</div>
+                                <div class="telemetry-subtitle">PZEM-004T • Energy Monitor</div>
+                            </div>
+                        </div>
+                        <div class="telemetry-badge-live">
+                            <span class="live-dot yellow"></span> LIVE
+                        </div>
+                    </div>
+
+                    <div class="telemetry-main-value">
+                        <span class="big-number energy-val" id="telemetryPowerWatt">485.2</span>
+                        <span class="unit-label">WATT</span>
+                    </div>
+
+                    <div class="telemetry-progress-wrapper">
+                        <div class="progress-info-row">
+                            <span>Beban Daya (Maks: 1300 VA)</span>
+                            <span id="telemetryPowerPercent">37.3%</span>
+                        </div>
+                        <div class="telemetry-progress-track">
+                            <div class="telemetry-progress-bar energy-bar" id="telemetryPowerBar" style="width: 37.3%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="telemetry-subgrid">
+                        <div class="submetric-box">
+                            <div class="submetric-lbl">Tegangan</div>
+                            <div class="submetric-val"><span id="telemetryVoltage">224.5</span> V</div>
+                        </div>
+                        <div class="submetric-box">
+                            <div class="submetric-lbl">Arus</div>
+                            <div class="submetric-val"><span id="telemetryCurrent">2.16</span> A</div>
+                        </div>
+                        <div class="submetric-box">
+                            <div class="submetric-lbl">Frekuensi</div>
+                            <div class="submetric-val"><span id="telemetryFreq">50.0</span> Hz</div>
+                        </div>
+                        <div class="submetric-box">
+                            <div class="submetric-lbl">Power Factor</div>
+                            <div class="submetric-val"><span id="telemetryPf">0.93</span> PF</div>
+                        </div>
+                    </div>
+
+                    <div class="telemetry-footer-banner">
+                        <div class="footer-stat">
+                            <span class="footer-lbl"><i class="fas fa-chart-line"></i> Total Energi</span>
+                            <span class="footer-val" id="telemetryEnergyKwh">14.85 kWh</span>
+                        </div>
+                        <div class="footer-divider"></div>
+                        <div class="footer-stat">
+                            <span class="footer-lbl"><i class="fas fa-receipt"></i> Estimasi Biaya</span>
+                            <span class="footer-val cost" id="telemetryCostRupiah">Rp 21.450</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Smart Water Flow Meter Card -->
+                <div class="telemetry-card water-card">
+                    <div class="telemetry-header">
+                        <div class="telemetry-header-left">
+                            <div class="telemetry-icon-box water">
+                                <i class="fas fa-faucet-drip"></i>
+                            </div>
+                            <div>
+                                <div class="telemetry-title">Aliran & Volume Air</div>
+                                <div class="telemetry-subtitle">YF-S201 • Sensor Debit Hall</div>
+                            </div>
+                        </div>
+                        <div class="telemetry-badge-live">
+                            <span class="live-dot cyan"></span> LIVE
+                        </div>
+                    </div>
+
+                    <div class="telemetry-main-value">
+                        <span class="big-number water-val" id="telemetryWaterFlow">3.4</span>
+                        <span class="unit-label">L / MENIT</span>
+                    </div>
+
+                    <div class="water-status-container">
+                        <div id="waterStatusPill" class="water-status-pill flowing">
+                            <i class="fas fa-water"></i> <span id="waterStatusText">Kran Air Mengalir</span>
+                        </div>
+                        <div class="water-wave-indicator active" id="waterWaveContainer">
+                            <span class="wave-bar b1"></span>
+                            <span class="wave-bar b2"></span>
+                            <span class="wave-bar b3"></span>
+                            <span class="wave-bar b4"></span>
+                            <span class="wave-bar b5"></span>
+                        </div>
+                    </div>
+
+                    <div class="telemetry-subgrid">
+                        <div class="submetric-box">
+                            <div class="submetric-lbl">Total Hari Ini</div>
+                            <div class="submetric-val"><span id="telemetryWaterTotal">184.2</span> L</div>
+                        </div>
+                        <div class="submetric-box">
+                            <div class="submetric-lbl">Volume (m³)</div>
+                            <div class="submetric-val"><span id="telemetryWaterM3">0.18</span> m³</div>
+                        </div>
+                        <div class="submetric-box">
+                            <div class="submetric-lbl">Tekanan Air</div>
+                            <div class="submetric-val"><span id="telemetryPressure">2.2</span> Bar</div>
+                        </div>
+                        <div class="submetric-box">
+                            <div class="submetric-lbl">Status Pipa</div>
+                            <div class="submetric-val text-green" id="telemetryLeakStatus"><i class="fas fa-shield-alt"></i> Normal</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Indoor Climate Monitor Card (Temp & Humidity Gauges) -->
+                <div class="telemetry-card climate-card">
+                    <div class="telemetry-header">
+                        <div class="telemetry-header-left">
+                            <div class="telemetry-icon-box climate">
+                                <i class="fas fa-temperature-half"></i>
+                            </div>
+                            <div>
+                                <div class="telemetry-title">Suhu & Kelembaban Ruangan</div>
+                                <div class="telemetry-subtitle">BME280 / DHT22 • Sensor Iklim</div>
+                            </div>
+                        </div>
+                        <div class="telemetry-badge-live">
+                            <span class="live-dot purple"></span> LIVE
+                        </div>
+                    </div>
+
+                    <div class="climate-gauges-row">
+                        <!-- Gauge 1: Temperatur -->
+                        <div class="gauge-box">
+                            <div class="svg-gauge-wrapper">
+                                <svg viewBox="0 0 100 100" class="circular-chart">
+                                    <path class="circle-bg"
+                                        d="M 50,50 m 0,-40 a 40,40 0 1 1 0,80 a 40,40 0 1 1 0,-80" />
+                                    <path id="tempCircleBar" class="circle-bar orange"
+                                        stroke-dasharray="68, 100"
+                                        d="M 50,50 m 0,-40 a 40,40 0 1 1 0,80 a 40,40 0 1 1 0,-80" />
+                                </svg>
+                                <div class="gauge-center-content">
+                                    <i class="fas fa-temperature-high gauge-icon temp"></i>
+                                    <div class="gauge-value"><span id="telemetryTemp">27.5</span>°C</div>
+                                    <div class="gauge-caption">Suhu</div>
+                                </div>
+                            </div>
+                            <div class="gauge-footer-badge" id="tempComfortBadge">
+                                <span class="badge-dot orange"></span> Nyaman
+                            </div>
+                        </div>
+
+                        <!-- Gauge 2: Kelembaban -->
+                        <div class="gauge-box">
+                            <div class="svg-gauge-wrapper">
+                                <svg viewBox="0 0 100 100" class="circular-chart">
+                                    <path class="circle-bg"
+                                        d="M 50,50 m 0,-40 a 40,40 0 1 1 0,80 a 40,40 0 1 1 0,-80" />
+                                    <path id="humidityCircleBar" class="circle-bar cyan"
+                                        stroke-dasharray="58, 100"
+                                        d="M 50,50 m 0,-40 a 40,40 0 1 1 0,80 a 40,40 0 1 1 0,-80" />
+                                </svg>
+                                <div class="gauge-center-content">
+                                    <i class="fas fa-droplet gauge-icon humidity"></i>
+                                    <div class="gauge-value"><span id="telemetryHumidity">58</span>%</div>
+                                    <div class="gauge-caption">Kelembaban</div>
+                                </div>
+                            </div>
+                            <div class="gauge-footer-badge" id="humidityComfortBadge">
+                                <span class="badge-dot green"></span> Optimal (58%)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="telemetry-subgrid" style="margin-top: 14px;">
+                        <div class="submetric-box">
+                            <div class="submetric-lbl">Titik Embun</div>
+                            <div class="submetric-val"><span id="telemetryDewPoint">18.5</span> °C</div>
+                        </div>
+                        <div class="submetric-box">
+                            <div class="submetric-lbl">Indeks Panas</div>
+                            <div class="submetric-val"><span id="telemetryHeatIndex">29.1</span> °C</div>
+                        </div>
+                        <div class="submetric-box">
+                            <div class="submetric-lbl">Min Hari Ini</div>
+                            <div class="submetric-val">23.8 °C</div>
+                        </div>
+                        <div class="submetric-box">
+                            <div class="submetric-lbl">Maks Hari Ini</div>
+                            <div class="submetric-val">31.4 °C</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Interactive Telemetry Simulator Controls -->
+                <div class="telemetry-card" style="margin-bottom: 24px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <div style="font-size: 13px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-sliders" style="color: var(--purple);"></i> Simulator & Uji Telemetri
+                        </div>
+                        <label class="telemetry-toggle-label" title="Aktifkan simulasi fluktuasi data live">
+                            <input type="checkbox" id="telemetryAutoFluctuate" checked onchange="toggleAutoTelemetry(this.checked)">
+                            <span>Live Ticker</span>
+                        </label>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+                        <button class="sim-quick-btn" onclick="testSimulateWaterFlow()">
+                            <i class="fas fa-faucet" style="color: #38bdf8;"></i>
+                            <span>Buka/Tutup Kran</span>
+                        </button>
+                        <button class="sim-quick-btn" onclick="testSimulateHeavyLoad()">
+                            <i class="fas fa-plug-circle-bolt" style="color: #f59e0b;"></i>
+                            <span>Beban Listrik</span>
+                        </button>
+                        <button class="sim-quick-btn" onclick="testSimulateClimateShift()">
+                            <i class="fas fa-temperature-arrow-up" style="color: #f97316;"></i>
+                            <span>Uji Suhu</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Simulated Mobile Bottom Bar -->
@@ -3559,6 +4215,7 @@ String getHTML() {
             const m = document.getElementById("virtualHardwareModal");
             if (m) {
                 renderVirtualPinsGrid();
+            startTelemetryTicker();
                 m.classList.add("active");
             }
         }
@@ -3866,6 +4523,8 @@ String getHTML() {
             const roomsGrid = document.getElementById("rooms-grid");
             const devicesGrid = document.getElementById("devices-grid");
 
+            const sensorsGrid = document.getElementById("sensors-grid");
+
             if (activeTab === "Room") {
                 // Sync static checkboxes back to DOM based on local storage states
                 const syncMap = {
@@ -3891,12 +4550,21 @@ String getHTML() {
                 renderCustomRooms();
                 roomsGrid.style.display = "grid";
                 devicesGrid.style.display = "none";
-            } else {
+                if (sensorsGrid) sensorsGrid.style.display = "none";
+            } else if (activeTab === "Devices") {
                 renderDevicesTab();
                 roomsGrid.style.display = "none";
                 devicesGrid.style.display = "grid";
+                if (sensorsGrid) sensorsGrid.style.display = "none";
+            } else if (activeTab.includes("Sensors")) {
+                roomsGrid.style.display = "none";
+                devicesGrid.style.display = "none";
+                if (sensorsGrid) {
+                    sensorsGrid.style.display = "grid";
+                    updateTelemetryUI();
+                }
             }
-            showToast(`Menampilkan kategori: ${activeTab}`);
+            showToast(`Menampilkan kategori: ${activeTab.replace(/[^a-zA-Z]/g, '')}`);
         }
 
         // Initial setup for default active/inactive visual classes
@@ -5085,6 +5753,7 @@ String getHTML() {
         window.addEventListener('load', () => {
             updateModeUI();
             renderVirtualPinsGrid();
+            startTelemetryTicker();
             initSupabase();
             logSerial("BOOT", "ESP32-WROOM-32 booting... MicroPython/Arduino RTOS core ready.");
             logSerial("INIT", `Araya Smart Home initialized in [${appMode.toUpperCase()}] mode.`);
@@ -5103,6 +5772,226 @@ String getHTML() {
                 completeSplashLoading();
             }
         }, 6000);
+
+        // =========================================================================
+        // TELEMETRY & SENSOR MONITORING ENGINE (WATER, ENERGY, CLIMATE)
+        // =========================================================================
+        let telemetryData = {
+            powerWatt: 485.2,
+            voltage: 224.5,
+            currentAmp: 2.16,
+            frequency: 50.0,
+            powerFactor: 0.93,
+            energyKwh: 14.85,
+            waterFlowRate: 3.4,
+            waterTotalLiters: 184.2,
+            temperature: 27.5,
+            humidity: 58.0
+        };
+
+        let isWaterFlowing = true;
+        let isHeavyLoad = false;
+        let climateShiftIndex = 0;
+        let telemetryTickerTimer = null;
+        let autoFluctuateActive = true;
+
+        function updateTelemetryUI() {
+            // 1. Listrik / Energy
+            const elPowerWatt = document.getElementById("telemetryPowerWatt");
+            const elPowerPercent = document.getElementById("telemetryPowerPercent");
+            const elPowerBar = document.getElementById("telemetryPowerBar");
+            const elVoltage = document.getElementById("telemetryVoltage");
+            const elCurrent = document.getElementById("telemetryCurrent");
+            const elFreq = document.getElementById("telemetryFreq");
+            const elPf = document.getElementById("telemetryPf");
+            const elEnergyKwh = document.getElementById("telemetryEnergyKwh");
+            const elCost = document.getElementById("telemetryCostRupiah");
+
+            if (elPowerWatt) elPowerWatt.innerText = telemetryData.powerWatt.toFixed(1);
+            if (elVoltage) elVoltage.innerText = telemetryData.voltage.toFixed(1);
+            if (elCurrent) elCurrent.innerText = telemetryData.currentAmp.toFixed(2);
+            if (elFreq) elFreq.innerText = telemetryData.frequency.toFixed(1);
+            if (elPf) elPf.innerText = telemetryData.powerFactor.toFixed(2);
+            if (elEnergyKwh) elEnergyKwh.innerText = `${telemetryData.energyKwh.toFixed(2)} kWh`;
+
+            const maxCapacity = 1300; // Daya PLN R-1 1300VA
+            const powerPct = Math.min(100, (telemetryData.powerWatt / maxCapacity) * 100);
+            if (elPowerPercent) elPowerPercent.innerText = `${powerPct.toFixed(1)}%`;
+            if (elPowerBar) elPowerBar.style.width = `${powerPct}%`;
+
+            // Estimasi Biaya PLN R-1 1300VA (@ Rp 1.444,70 / kWh)
+            const costVal = Math.round(telemetryData.energyKwh * 1444.70);
+            if (elCost) elCost.innerText = `Rp ${costVal.toLocaleString('id-ID')}`;
+
+            // 2. Air / Water Flow
+            const elWaterFlow = document.getElementById("telemetryWaterFlow");
+            const elWaterTotal = document.getElementById("telemetryWaterTotal");
+            const elWaterM3 = document.getElementById("telemetryWaterM3");
+            const elStatusPill = document.getElementById("waterStatusPill");
+            const elStatusText = document.getElementById("waterStatusText");
+            const elWaveContainer = document.getElementById("waterWaveContainer");
+
+            if (elWaterFlow) elWaterFlow.innerText = telemetryData.waterFlowRate.toFixed(1);
+            if (elWaterTotal) elWaterTotal.innerText = telemetryData.waterTotalLiters.toFixed(1);
+            if (elWaterM3) elWaterM3.innerText = (telemetryData.waterTotalLiters / 1000).toFixed(2);
+
+            const isFlowing = (telemetryData.waterFlowRate > 0.1);
+            if (elStatusPill) {
+                if (isFlowing) {
+                    elStatusPill.className = "water-status-pill flowing";
+                    if (elStatusText) elStatusText.innerText = "Kran Air Mengalir";
+                } else {
+                    elStatusPill.className = "water-status-pill idle";
+                    if (elStatusText) elStatusText.innerText = "Standby (Kran Tertutup)";
+                }
+            }
+            if (elWaveContainer) {
+                if (isFlowing) elWaveContainer.classList.add("active");
+                else elWaveContainer.classList.remove("active");
+            }
+
+            // 3. Suhu & Kelembaban
+            const elTemp = document.getElementById("telemetryTemp");
+            const elHumidity = document.getElementById("telemetryHumidity");
+            const elTempCircle = document.getElementById("tempCircleBar");
+            const elHumCircle = document.getElementById("humidityCircleBar");
+            const elDew = document.getElementById("telemetryDewPoint");
+            const elHeat = document.getElementById("telemetryHeatIndex");
+            const elTempComfort = document.getElementById("tempComfortBadge");
+            const elHumComfort = document.getElementById("humidityComfortBadge");
+
+            if (elTemp) elTemp.innerText = telemetryData.temperature.toFixed(1);
+            if (elHumidity) elHumidity.innerText = Math.round(telemetryData.humidity);
+
+            // Circular SVG Gauge (0-50 C, 0-100%)
+            if (elTempCircle) {
+                const tempDash = Math.min(100, Math.max(0, (telemetryData.temperature / 50) * 100));
+                elTempCircle.setAttribute("stroke-dasharray", `${tempDash.toFixed(0)}, 100`);
+            }
+            if (elHumCircle) {
+                const humDash = Math.min(100, Math.max(0, telemetryData.humidity));
+                elHumCircle.setAttribute("stroke-dasharray", `${humDash.toFixed(0)}, 100`);
+            }
+
+            // Titik Embun (Magnus formula sederhana)
+            const T = telemetryData.temperature;
+            const RH = telemetryData.humidity;
+            const dew = T - ((100 - RH) / 5);
+            if (elDew) elDew.innerText = dew.toFixed(1);
+
+            // Indeks Panas sederhana
+            const heatIdx = T + (0.5555 * ((RH / 100 * 6.11 * Math.exp(5417.7530 * (1/273.16 - 1/(273.15 + T)))) - 10));
+            if (elHeat) elHeat.innerText = heatIdx.toFixed(1);
+
+            // Comfort Badges
+            if (elTempComfort) {
+                if (T < 24) {
+                    elTempComfort.innerHTML = '<span class="badge-dot cyan" style="background:#06b6d4;"></span> Sejuk';
+                } else if (T <= 29) {
+                    elTempComfort.innerHTML = '<span class="badge-dot orange"></span> Nyaman';
+                } else {
+                    elTempComfort.innerHTML = '<span class="badge-dot" style="background:#ef4444;box-shadow:0 0 6px #ef4444;"></span> Hangat / Gerah';
+                }
+            }
+
+            if (elHumComfort) {
+                if (RH < 40) {
+                    elHumComfort.innerHTML = '<span class="badge-dot" style="background:#f59e0b;"></span> Kering';
+                } else if (RH <= 65) {
+                    elHumComfort.innerHTML = '<span class="badge-dot green"></span> Optimal';
+                } else {
+                    elHumComfort.innerHTML = '<span class="badge-dot cyan" style="background:#06b6d4;"></span> Lembab';
+                }
+            }
+        }
+
+        // Live Ticker Fluctuations (Simulasi Realtime)
+        function startTelemetryTicker() {
+            if (telemetryTickerTimer) clearInterval(telemetryTickerTimer);
+            telemetryTickerTimer = setInterval(() => {
+                if (!autoFluctuateActive) return;
+
+                // Fluktuasi Listrik
+                const voltDelta = (Math.random() - 0.5) * 1.5;
+                telemetryData.voltage = Math.min(230, Math.max(218, telemetryData.voltage + voltDelta));
+
+                const powerDelta = (Math.random() - 0.5) * (isHeavyLoad ? 18 : 6);
+                telemetryData.powerWatt = Math.max(80, telemetryData.powerWatt + powerDelta);
+                telemetryData.currentAmp = +(telemetryData.powerWatt / telemetryData.voltage).toFixed(2);
+                telemetryData.energyKwh += (telemetryData.powerWatt / 1000) * (2 / 3600);
+
+                // Fluktuasi Air
+                if (isWaterFlowing) {
+                    const flowDelta = (Math.random() - 0.5) * 0.2;
+                    telemetryData.waterFlowRate = Math.min(8.0, Math.max(1.5, telemetryData.waterFlowRate + flowDelta));
+                    telemetryData.waterTotalLiters += (telemetryData.waterFlowRate / 60) * 2;
+                } else {
+                    telemetryData.waterFlowRate = 0.0;
+                }
+
+                // Fluktuasi Suhu & RH
+                const tempDelta = (Math.random() - 0.5) * 0.06;
+                telemetryData.temperature = Math.min(36, Math.max(20, telemetryData.temperature + tempDelta));
+
+                const humDelta = (Math.random() - 0.5) * 0.2;
+                telemetryData.humidity = Math.min(95, Math.max(30, telemetryData.humidity + humDelta));
+
+                // Update UI jika tab aktif adalah Sensors
+                const sensorsGrid = document.getElementById("sensors-grid");
+                if (sensorsGrid && sensorsGrid.style.display !== "none") {
+                    updateTelemetryUI();
+                }
+            }, 2000);
+        }
+
+        function toggleAutoTelemetry(val) {
+            autoFluctuateActive = val;
+            showToast(val ? "Live Telemetry Ticker Aktif" : "Live Telemetry Ticker Dijeda");
+        }
+
+        function testSimulateWaterFlow() {
+            isWaterFlowing = !isWaterFlowing;
+            if (isWaterFlowing) {
+                telemetryData.waterFlowRate = 3.6;
+                showToast("💧 Kran Air Dibuka (Debit: 3.6 L/m)");
+            } else {
+                telemetryData.waterFlowRate = 0.0;
+                showToast("🛑 Kran Air Ditutup (Debit: 0.0 L/m)");
+            }
+            updateTelemetryUI();
+        }
+
+        function testSimulateHeavyLoad() {
+            isHeavyLoad = !isHeavyLoad;
+            if (isHeavyLoad) {
+                telemetryData.powerWatt = 1140.5;
+                showToast("⚡ Beban Listrik Tinggi Aktif (1140 Watt)");
+            } else {
+                telemetryData.powerWatt = 480.0;
+                showToast("⚡ Beban Listrik Normal (480 Watt)");
+            }
+            telemetryData.currentAmp = +(telemetryData.powerWatt / telemetryData.voltage).toFixed(2);
+            updateTelemetryUI();
+        }
+
+        function testSimulateClimateShift() {
+            climateShiftIndex = (climateShiftIndex + 1) % 3;
+            if (climateShiftIndex === 0) {
+                telemetryData.temperature = 24.2;
+                telemetryData.humidity = 52.0;
+                showToast("❄️ Suhu Ruangan Sejuk (24.2°C)");
+            } else if (climateShiftIndex === 1) {
+                telemetryData.temperature = 27.8;
+                telemetryData.humidity = 60.0;
+                showToast("🌤️ Suhu Ruangan Normal (27.8°C)");
+            } else {
+                telemetryData.temperature = 32.5;
+                telemetryData.humidity = 72.0;
+                showToast("☀️ Suhu Ruangan Hangat / Lembab (32.5°C)");
+            }
+            updateTelemetryUI();
+        }
+
     </script>
 </body>
 
